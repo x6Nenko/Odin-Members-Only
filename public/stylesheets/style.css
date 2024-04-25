@@ -6,3 +6,26 @@ body {
 a {
   color: #00B7FF;
 }
+
+input {
+  width: 100%;
+  padding: 10px;
+}
+
+button {
+  width: fit-content;
+  padding: 10px 30px;
+  margin-top: 10px;
+}
+
+.sign-up-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sign-up-form div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
