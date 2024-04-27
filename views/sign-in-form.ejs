@@ -1,0 +1,25 @@
+<%- include('header-template'); -%>
+  <h1><%= title %></h1>
+  
+  <form action="" method="POST" class="sign-up-form">
+    <div>
+      <label for="username">Username</label>
+      <input type="text" name="username" id="username" placeholder="JohnDoe5000" required>
+    </div>
+
+    <div>
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" placeholder="Password" required>
+    </div>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <% if (errors) { %>
+    <ul>
+      <% errors.forEach(error => { %>
+        <li><%= error.msg %></li>
+      <% }); %>
+    </ul>
+  <% } %>
+<%- include('footer-template'); -%>

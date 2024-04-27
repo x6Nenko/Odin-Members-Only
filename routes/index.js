@@ -10,6 +10,9 @@ router.get('/', mainController.main_home);
 /* GET profile page. */
 router.get('/profile', mainController.main_profile);
 
+/* GET sign in page. */
+router.get('/sign-in', mainController.main_sign_in_get);
+
 // SIGN UP ROUTES
 
 // GET sign up form.

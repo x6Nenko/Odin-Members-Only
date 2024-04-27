@@ -15,7 +15,7 @@ exports.main_home = asyncHandler(async (req, res, next) => {
 // Display profile page
 exports.main_profile = asyncHandler(async (req, res, next) => {
   res.render("profile", {
-    title: "Members Only",
+    title: "Members Only - Profile",
   });
 });
 
@@ -87,9 +87,7 @@ exports.main_sign_up_post = [
         user.password = hashedPassword;
     
         await user.save();
-        // console.log("success");
-        // console.log(user);
-        res.redirect("/");
+        res.redirect("/sign-in");
       } catch (err) {
         // Handle any errors
         return next(err);
@@ -97,3 +95,11 @@ exports.main_sign_up_post = [
     }
   }),
 ];
+
+// Display sign in form on GET
+exports.main_sign_in_get = asyncHandler(async (req, res, next) => {
+  res.render("sign-in-form", {
+    title: "Sign In",
+    errors: undefined,
+  });
+});
