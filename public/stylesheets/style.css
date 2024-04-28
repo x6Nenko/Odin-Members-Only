@@ -24,8 +24,16 @@ button {
   gap: 10px;
 }
 
+.member-form {
+  margin-top: 32px;
+}
+
 .sign-up-form div {
   display: flex;
   flex-direction: column;
   gap: 3px;
+}
+
+.underline {
+  text-decoration: underline;
 }

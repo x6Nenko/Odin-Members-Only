@@ -11,6 +11,9 @@ router.get('/', mainController.main_home);
 /* GET profile page. */
 router.get('/profile', mainController.main_profile);
 
+/* POST profile page. */
+router.post('/profile', mainController.main_profile_post);
+
 // SIGN IN ROUTES
 
 /* GET sign in page. */
@@ -20,7 +23,7 @@ router.get('/sign-in', mainController.main_sign_in_get);
 router.post('/sign-in', 
   passport.authenticate('local', { failureRedirect: '/sign-in', failureMessage: true }),
   function(req, res) {
-    res.redirect('/');
+    res.redirect('/profile');
   });
 
 // SIGN UP ROUTES

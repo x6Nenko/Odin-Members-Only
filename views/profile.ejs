@@ -1,5 +1,31 @@
 <%- include('header-template'); -%>
-  <h1>Welcome <%= full_name %> to the <%= title %>.</h1>
+  <% if (user && user.membership_status) { %>
+    <h1>Welcome <span class="underline"><%= user.full_name %></span> to your profile!</h1>
 
-  <p>Here you can become a member.</p>
+    <p>You are member!</p>
+  <% } else if (user && !user.membership_status) { %>
+    <h1>Welcome <span class="underline"><%= user.full_name %></span> to your profile!</h1>
+
+    <p>Here you can become a member.</p>
+
+    <form action="" method="POST" class="sign-up-form member-form">
+      <div>
+        <label for="secretcode">Enter secret pass code to become a member:</label>
+        <input type="text" name="secretcode" id="secretcode" placeholder="<%= `${user.first_name}${user.last_name}5000` %>" required>
+      </div>
+    
+      <button type="submit">Submit</button>
+    </form>
+  <% } else { %>
+    <h1><%= title %></h1>
+    <p>You are not authorised to see this page.</p>
+  <% } %>
+
+  <% if (errors) { %>
+    <ul>
+      <% errors.forEach(error => { %>
+        <li><%= error %></li>
+      <% }); %>
+    </ul>
+  <% } %>
 <%- include('footer-template'); -%>

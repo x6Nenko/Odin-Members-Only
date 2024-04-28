@@ -20,7 +20,23 @@ exports.main_home = asyncHandler(async (req, res, next) => {
 exports.main_profile = asyncHandler(async (req, res, next) => {
   res.render("profile", {
     title: "Members Only - Profile",
+    user: req.user,
+    errors: undefined,
   });
+});
+
+// Handle profile form POST
+exports.main_profile_post = asyncHandler(async (req, res, next) => {
+  if (req.body.secretcode === `${req.user.first_name}${req.user.last_name}5000`) {
+    await User.findByIdAndUpdate(req.user._id, { membership_status: true });
+    res.redirect("/profile");
+  } else {
+    res.render("profile", {
+      title: "Members Only - Profile",
+      user: req.user,
+      errors: ["Wrong secret code."],
+    });
+  }
 });
 
 // Display sign up form on GET
