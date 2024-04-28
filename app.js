@@ -7,6 +7,8 @@ const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require('bcryptjs');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const compression = require("compression");
+const helmet = require("helmet");
 
 const User = require("./models/User");
 
@@ -16,6 +18,19 @@ const usersRouter = require('./routes/users');
 require('dotenv').config()
 
 const app = express();
+
+// Set up rate limiter: maximum of twenty requests per minute
+const RateLimit = require("express-rate-limit");
+const limiter = RateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 250,
+});
+// Apply rate limiter to all requests
+app.use(limiter);
+
+// Add helmet to the middleware chain.
+app.use(helmet());
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -63,6 +78,8 @@ passport.deserializeUser(async (id, done) => {
     done(err);
   };
 });
+
+app.use(compression()); // Compress all routes
 
 // routes
 app.use('/', indexRouter);
