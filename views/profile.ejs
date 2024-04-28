@@ -1,17 +1,46 @@
 <%- include('header-template'); -%>
-  <% if (user && user.membership_status) { %>
+  <% if (user && user.admin) { %>
+    <h1>Welcome <span class="underline"><%= user.full_name %></span> to your profile!</h1>
+
+    <p>You are admin!</p>
+
+  <% } else if (user && user.membership_status && !user.admin) { %>
     <h1>Welcome <span class="underline"><%= user.full_name %></span> to your profile!</h1>
 
     <p>You are member!</p>
-  <% } else if (user && !user.membership_status) { %>
-    <h1>Welcome <span class="underline"><%= user.full_name %></span> to your profile!</h1>
-
-    <p>Here you can become a member.</p>
 
     <form action="" method="POST" class="sign-up-form member-form">
+      <input type="hidden" name="formType" value="updateAdmin">
+
+      <div>
+        <label for="secretadmincode">Enter secret pass code to become an admin:</label>
+        <input type="text" name="secretadmincode" id="secretadmincode" placeholder="<%= `${user.first_name}${user.last_name}7000` %>" required>
+      </div>
+    
+      <button type="submit">Submit</button>
+    </form>
+  <% } else if (user && !user.membership_status && !user.admin) { %>
+    <h1>Welcome <span class="underline"><%= user.full_name %></span> to your profile!</h1>
+
+    <p>Here you can become a member or admin.</p>
+
+    <form action="" method="POST" class="sign-up-form member-form">
+      <input type="hidden" name="formType" value="updateMembership">
+
       <div>
         <label for="secretcode">Enter secret pass code to become a member:</label>
-        <input type="text" name="secretcode" id="secretcode" placeholder="<%= `${user.first_name}${user.last_name}5000` %>" required>
+        <input type="text" name="secretcode" id="secretcode" placeholder="<%= `${user.first_name}${user.last_name}5000` %>">
+      </div>
+    
+      <button type="submit">Submit</button>
+    </form>
+
+    <form action="" method="POST" class="sign-up-form member-form">
+      <input type="hidden" name="formType" value="updateAdmin">
+
+      <div>
+        <label for="secretadmincode">Enter secret pass code to become an admin:</label>
+        <input type="text" name="secretadmincode" id="secretadmincode" placeholder="<%= `${user.first_name}${user.last_name}7000` %>">
       </div>
     
       <button type="submit">Submit</button>
