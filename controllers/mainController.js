@@ -1,14 +1,18 @@
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require('bcryptjs');
+const passport = require("passport");
+
 
 const User = require("../models/User");
 const Post = require("../models/Post");
 
 // Display home page
 exports.main_home = asyncHandler(async (req, res, next) => {
+  console.log(req.user);
   res.render("index", {
     title: "Members Only",
+    user: req.user
   });
 });
 
@@ -23,7 +27,7 @@ exports.main_profile = asyncHandler(async (req, res, next) => {
 exports.main_sign_up_get = asyncHandler(async (req, res, next) => {
   res.render("sign-up-form", {
     title: "Sign Up",
-    user: undefined,
+    user: req.user,
     errors: undefined,
   });
 });
@@ -98,8 +102,12 @@ exports.main_sign_up_post = [
 
 // Display sign in form on GET
 exports.main_sign_in_get = asyncHandler(async (req, res, next) => {
+  let errors;
+  req.session.messages ? errors = req.session.messages : undefined;
+
   res.render("sign-in-form", {
     title: "Sign In",
-    errors: undefined,
+    user: req.user,
+    errors: errors,
   });
 });

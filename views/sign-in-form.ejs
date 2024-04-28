@@ -1,24 +1,28 @@
 <%- include('header-template'); -%>
   <h1><%= title %></h1>
+
+  <% if (user) { %>
+    <p>You are already logged in as a <%= user.username %></p>
+  <% } else { %>
+    <form action="" method="POST" class="sign-up-form">
+      <div>
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username" placeholder="JohnDoe5000" required>
+      </div>
   
-  <form action="" method="POST" class="sign-up-form">
-    <div>
-      <label for="username">Username</label>
-      <input type="text" name="username" id="username" placeholder="JohnDoe5000" required>
-    </div>
-
-    <div>
-      <label for="password">Password</label>
-      <input type="password" name="password" id="password" placeholder="Password" required>
-    </div>
-
-    <button type="submit">Submit</button>
-  </form>
+      <div>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" placeholder="Password" required>
+      </div>
+  
+      <button type="submit">Submit</button>
+    </form>
+  <% } %>
 
   <% if (errors) { %>
     <ul>
       <% errors.forEach(error => { %>
-        <li><%= error.msg %></li>
+        <li><%= error %></li>
       <% }); %>
     </ul>
   <% } %>

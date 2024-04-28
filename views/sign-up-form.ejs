@@ -1,34 +1,38 @@
 <%- include('header-template'); -%>
   <h1><%= title %></h1>
+
+  <% if (user) { %>
+    <p>You are already logged in as a <%= user.username %></p>
+  <% } else { %>
+    <form action="" method="POST" class="sign-up-form">
+      <div>
+        <label for="firstName">First name</label>
+        <input type="text" name="firstName" id="firstName" placeholder="John" required value="<%= user !== undefined ? user.first_name : "" %>">
+      </div>
   
-  <form action="" method="POST" class="sign-up-form">
-    <div>
-      <label for="firstName">First name</label>
-      <input type="text" name="firstName" id="firstName" placeholder="John" required value="<%= user !== undefined ? user.first_name : "" %>">
-    </div>
-
-    <div>
-      <label for="lastName">Last name</label>
-      <input type="text" name="lastName" id="lastName" placeholder="Doe" required value="<%= user !== undefined ? user.last_name : "" %>">
-    </div>
-
-    <div>
-      <label for="username">Username</label>
-      <input type="text" name="username" id="username" placeholder="JohnDoe5000" required value="<%= user !== undefined ? user.username : "" %>">
-    </div>
-
-    <div>
-      <label for="password">Password</label>
-      <input type="password" name="password" id="password" placeholder="Password" required>
-    </div>
-
-    <div>
-      <label for="passwordConfirmation">Confirm password</label>
-      <input type="password" name="passwordConfirmation" id="passwordConfirmation" placeholder="Confirm password" required>
-    </div>
-
-    <button type="submit">Submit</button>
-  </form>
+      <div>
+        <label for="lastName">Last name</label>
+        <input type="text" name="lastName" id="lastName" placeholder="Doe" required value="<%= user !== undefined ? user.last_name : "" %>">
+      </div>
+  
+      <div>
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username" placeholder="JohnDoe5000" required value="<%= user !== undefined ? user.username : "" %>">
+      </div>
+  
+      <div>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" placeholder="Password" required>
+      </div>
+  
+      <div>
+        <label for="passwordConfirmation">Confirm password</label>
+        <input type="password" name="passwordConfirmation" id="passwordConfirmation" placeholder="Confirm password" required>
+      </div>
+  
+      <button type="submit">Submit</button>
+    </form>
+  <% } %>
 
   <% if (errors) { %>
     <ul>

@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const passport = require("passport");
 
 const mainController = require("../controllers/mainController");
 
@@ -10,8 +11,17 @@ router.get('/', mainController.main_home);
 /* GET profile page. */
 router.get('/profile', mainController.main_profile);
 
+// SIGN IN ROUTES
+
 /* GET sign in page. */
 router.get('/sign-in', mainController.main_sign_in_get);
+
+/* POST sign in page. */
+router.post('/sign-in', 
+  passport.authenticate('local', { failureRedirect: '/sign-in', failureMessage: true }),
+  function(req, res) {
+    res.redirect('/');
+  });
 
 // SIGN UP ROUTES
 

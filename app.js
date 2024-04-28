@@ -4,6 +4,7 @@ const path = require('path');
 const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
+const bcrypt = require('bcryptjs');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
@@ -26,9 +27,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-
 // set up passport
 app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
 app.use(passport.session());
@@ -41,8 +39,10 @@ passport.use(
       if (!user) {
         return done(null, false, { message: "Incorrect username" });
       };
-      if (user.password !== password) {
-        return done(null, false, { message: "Incorrect password" });
+      const match = await bcrypt.compare(password, user.password);
+      if (!match) {
+        // passwords do not match!
+        return done(null, false, { message: "Incorrect password" })
       };
       return done(null, user);
     } catch(err) {
@@ -64,7 +64,9 @@ passport.deserializeUser(async (id, done) => {
   };
 });
 
-
+// routes
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
