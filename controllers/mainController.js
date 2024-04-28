@@ -17,6 +17,11 @@ exports.main_home = asyncHandler(async (req, res, next) => {
   });
 });
 
+exports.main_home_post = asyncHandler(async (req, res, next) => {
+  await Post.findByIdAndDelete(req.body.messageId);
+  res.redirect("/");
+});
+
 // Display profile page
 exports.main_profile = asyncHandler(async (req, res, next) => {
   res.render("profile", {

@@ -8,6 +8,9 @@ const mainController = require("../controllers/mainController");
 /* GET home page. */
 router.get('/', mainController.main_home);
 
+/* POST home page. */
+router.post('/', mainController.main_home_post);
+
 // PROFILE ROUTES
 
 /* GET profile page. */

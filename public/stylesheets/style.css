@@ -68,3 +68,8 @@ button {
 ;
   color: #585858;
 }
+
+nav {
+  display: flex;
+  gap: 16px;
+}
