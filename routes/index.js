@@ -29,7 +29,18 @@ router.post('/sign-in',
   passport.authenticate('local', { failureRedirect: '/sign-in', failureMessage: true }),
   function(req, res) {
     res.redirect('/profile');
+});
+
+/* GET log-out. */
+router.get("/log-out", (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
   });
+});
+
 
 // SIGN UP ROUTES
 
