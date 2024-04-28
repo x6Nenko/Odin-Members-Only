@@ -2,10 +2,18 @@
   <% if (user && user.admin) { %>
     <h1>Welcome <span class="underline"><%= user.full_name %></span> to your profile!</h1>
 
+    <nav>
+      <a href="/">Home page</a>
+    </nav>
+
     <p>You are admin!</p>
 
   <% } else if (user && user.membership_status && !user.admin) { %>
     <h1>Welcome <span class="underline"><%= user.full_name %></span> to your profile!</h1>
+
+    <nav>
+      <a href="/">Home page</a>
+    </nav>
 
     <p>You are member!</p>
 
@@ -21,6 +29,10 @@
     </form>
   <% } else if (user && !user.membership_status && !user.admin) { %>
     <h1>Welcome <span class="underline"><%= user.full_name %></span> to your profile!</h1>
+
+    <nav>
+      <a href="/">Home page</a>
+    </nav>
 
     <p>Here you can become a member or admin.</p>
 
@@ -47,6 +59,9 @@
     </form>
   <% } else { %>
     <h1><%= title %></h1>
+    <nav>
+      <a href="/">Home page</a>
+    </nav>
     <p>You are not authorised to see this page.</p>
   <% } %>
 

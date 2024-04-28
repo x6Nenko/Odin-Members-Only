@@ -73,3 +73,7 @@ nav {
   display: flex;
   gap: 16px;
 }
+
+.new-msg-nav {
+  margin-bottom: 32px;
+}
