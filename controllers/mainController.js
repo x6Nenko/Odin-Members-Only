@@ -9,10 +9,11 @@ const Post = require("../models/Post");
 
 // Display home page
 exports.main_home = asyncHandler(async (req, res, next) => {
-  console.log(req.user);
+  const allPosts = await Post.find().populate("author").sort({ createdAt: -1 }).exec();
   res.render("index", {
     title: "Members Only",
-    user: req.user
+    user: req.user,
+    posts: allPosts,
   });
 });
 
@@ -127,3 +128,52 @@ exports.main_sign_in_get = asyncHandler(async (req, res, next) => {
     errors: errors,
   });
 });
+
+// New message form on GET
+exports.main_new_message_get = asyncHandler(async (req, res, next) => {
+  res.render("new-message-form", {
+    title: "Send new message",
+    user: req.user,
+    new_message: undefined,
+    errors: undefined,
+  });
+});
+
+// New message form on POST
+exports.main_new_message_post = [
+  // Validate and sanitize fields.
+  body("title", "Title must not be empty.")
+    .trim()
+    .isLength({ min: 3, max: 40 })
+    .escape(),
+  body("text", "Text must not be empty.")
+    .trim()
+    .isLength({ min: 3, max: 1000 })
+    .escape(),
+
+  // Process request after validation and sanitization.
+  asyncHandler(async (req, res, next) => {
+    // Extract the validation errors from a request.
+    const errors = validationResult(req);
+
+    // Create post
+    const newMessage = new Post({
+      title: req.body.title,
+      text: req.body.text, 
+      author: req.user._id,
+    });
+
+    if (!errors.isEmpty()) {
+      // There are errors. Render form again with sanitized values/error messages.
+      res.render("new-message-form", {
+        title: "Send new message",
+        new_message: newMessage,
+        user: req.user,
+        errors: errors.array(),
+      })
+    } else {
+      await newMessage.save();
+      res.redirect("/");
+    }
+  }),
+];

@@ -8,6 +8,8 @@ const mainController = require("../controllers/mainController");
 /* GET home page. */
 router.get('/', mainController.main_home);
 
+// PROFILE ROUTES
+
 /* GET profile page. */
 router.get('/profile', mainController.main_profile);
 
@@ -33,6 +35,14 @@ router.get("/sign-up", mainController.main_sign_up_get);
 
 // POST sign up form.
 router.post("/sign-up", mainController.main_sign_up_post);
+
+// NEW MESSAGE ROUTES
+
+// GET new message form.
+router.get("/new-message", mainController.main_new_message_get);
+
+// POST new message form.
+router.post("/new-message", mainController.main_new_message_post);
 
 
 module.exports = router;

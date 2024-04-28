@@ -10,5 +10,29 @@
 
     <a href="/sign-in">Sign in</a>
     <a href="/sign-up">Sign up</a>
+    <% if (user && user.membership_status) { %>
+      <a href="/new-message">Create a new message</a>
+    <% } %>
+
+    <% if (posts.length > 0) { %>
+      <section class="posts-wrapper">
+      <% posts.forEach(post => { %>
+        <article class="post-container">
+          <h2><%= post.title %></h2>
+          <% if (user && user.membership_status) { %>
+            <div class="post-details">
+              <p>Posted by: <%= post.author.full_name %>, @<%= post.author.username %>.</p>
+              <p><%= post.createdAt_formatted %></p>
+            </div>
+          <% } else { %>
+            <div class="post-details">
+              <p>You are not authorised to see this block.</p>
+            </div>
+          <% } %>
+          <p><%= post.text %></p>
+        </article>
+      <% }) %>
+      </section>
+    <% } %>
   </body>
 </html>

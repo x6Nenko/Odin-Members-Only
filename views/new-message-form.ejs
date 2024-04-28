@@ -1,0 +1,29 @@
+<%- include('header-template'); -%>
+  <h1><%= title %></h1>
+
+  <% if (user && user.membership_status) { %>
+    <form action="" method="POST" class="sign-up-form">
+      <div>
+        <label for="title">Title</label>
+        <input type="text" name="title" id="title" placeholder="Hello there" required value="<%= new_message !== undefined ? new_message.title : "" %>">
+      </div>
+  
+      <div>
+        <label for="text">Text</label>
+        <textarea name="text" id="text" rows="3" placeholder="It's my new post ..."><%= new_message !== undefined ? new_message.text : "" %></textarea>
+      </div>
+  
+      <button type="submit">Submit</button>
+    </form>
+  <% } else { %>
+    <p>You are not authorised to see this page.</p>
+  <% } %>
+
+  <% if (errors) { %>
+    <ul>
+      <% errors.forEach(error => { %>
+        <li><%= error.msg %></li>
+      <% }); %>
+    </ul>
+  <% } %>
+<%- include('footer-template'); -%>
