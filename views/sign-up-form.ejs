@@ -1,7 +1,11 @@
 <%- include('header-template'); -%>
   <h1><%= title %></h1>
 
-  <% if (user) { %>
+  <nav class="new-msg-nav">
+    <a href="/">Home page</a>
+  </nav>
+
+  <% if (user && !errors) { %>
     <p>You are already logged in as a <%= user.username %></p>
   <% } else { %>
     <form action="" method="POST" class="sign-up-form">
